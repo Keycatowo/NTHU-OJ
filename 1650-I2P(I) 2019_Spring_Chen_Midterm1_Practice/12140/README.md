@@ -31,6 +31,8 @@ Help Mr. Yasuoo to answer these questions before he starts feeding, ASAP!
  ⠄⠄⠈⡍⠻⣿⣿⣿⣿⠟⠋⢁⣼⠿⠋⠉⠄⠄⠄⠄
  ⠄⠄⠄⠈⠴⢬⣙⣛⡥⠴⠂⠄⠄⠄⠄⠄⠄⠄⠄⠄...
 (the photo of the famous streamer)
+> 給一串長的字串和短的目標以及固定範圍
+  每次求範圍內出現短的字串的次數
 
 ##Input
 Input should contain multiple lines.
@@ -52,6 +54,10 @@ sa
 1 4
 2 3
 ```
+> 第一行為字串S
+  第二行為子字串s
+  第三行為問題數t
+    接下來t行為序列區間 [l,r] 1~length of S
 
 ##Output
 For each question, you are asked to print the the number of occurrences of substring s.
@@ -62,3 +68,4 @@ Your program should present a single '\n' at the end of output.
 1
 0
 ```
+> t行

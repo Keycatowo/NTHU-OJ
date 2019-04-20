@@ -27,7 +27,10 @@ Note that we can't  divide a string if the length of the string is an odd number
 
 Help Johnny find out if the two string are the same. If you help him, he will give you some sugar.
 
-
+> 定義一個等於規則：
+  Oo=Xx
+    1. O=X,o=x 前前相等，後後相等
+    2. O=x;o=X  前等於對方的後，後等於對方的前
 
 
 
@@ -47,7 +50,9 @@ the length of the two string are the same and the length is from 1~105 ( 1 <= le
 apapapap
 papapapa
 ```
-
+> 2行字串輸入
+    長度相等且介於1~105之間
+  
 
 ##Output
 output contains one line.

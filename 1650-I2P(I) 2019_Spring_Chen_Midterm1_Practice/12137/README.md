@@ -23,21 +23,23 @@ For example: given n = 5 and numbers: { 1,2,3,3,3 }, and k = 3, the answer is 4.
 
 Johnny is a bad boy, so he commands you to do this for him!
 
-
+> 給一串數字和目標和
+  求可以將元素組合求和得出目標和的方法數
 
 
 
 ##Input
 Input contains two lines.
 
-First line contains two integer n ( 1 <= n <= 20 ), k ( 1<=  k <=109)
+First line contains two integer **n ( 1 <= n <= 20 ), k ( 1<=  k <=109)**
 
-Second line contains n integer a1 ~ an ( 1 <= ai <= 107 )
+Second line contains n integer a1 ~ an (**1 <= ai <= 107** )
 ```
 5 3
 1 2 3 3 3
 ```
-
+> n k
+  a1 a2 ... an
 
 ##Output
 Output only contains one integer that is sum of available ways to pick numbers, which summation is equal to k.
