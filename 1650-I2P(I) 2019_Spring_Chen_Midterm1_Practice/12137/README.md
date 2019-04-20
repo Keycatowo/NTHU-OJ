@@ -1,6 +1,6 @@
 # 12137 - Johnny Johnny   
 
-##Description
+## Description
 PaPa suspected that Johnny ate the sugar, yet Johnny said he hadn't eaten it.
 
 Therefore, PaPa asked: " Telling lies? "
@@ -28,7 +28,7 @@ Johnny is a bad boy, so he commands you to do this for him!
 
 
 
-##Input
+## Input
 Input contains two lines.
 
 First line contains two integer **n ( 1 <= n <= 20 ), k ( 1<=  k <=109)**
@@ -41,7 +41,7 @@ Second line contains n integer a1 ~ an (**1 <= ai <= 107** )
 > n k
   a1 a2 ... an
 
-##Output
+## Output
 Output only contains one integer that is sum of available ways to pick numbers, which summation is equal to k.
 
 Remember to print \n at the end of output.

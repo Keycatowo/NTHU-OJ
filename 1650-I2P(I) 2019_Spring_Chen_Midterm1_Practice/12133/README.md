@@ -1,6 +1,6 @@
 # 12133 - Yes papa   
 
-##Description
+## Description
 Johnny is a three years old kids. He likes to eat sugar. Oneday, he sneak into the kitchen in order to grab some sugar to eat. Unfortunately, his papa catch him.
 
 His papa call him: " Johnny, Johnny! "
@@ -38,7 +38,7 @@ Help Johnny find out if the two string are the same. If you help him, he will gi
 
 
 
-##Input
+## Input
 input contains two lines.
 
 First line is the string a.
@@ -52,9 +52,9 @@ papapapa
 ```
 > 2行字串輸入
     長度相等且介於1~105之間
-  
 
-##Output
+
+## Output
 output contains one line.
 
 print "YES" if two string is equal in Johnny's rule,

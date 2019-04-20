@@ -1,6 +1,6 @@
 # 12132 - too many watermelons  
 
-##Description
+## Description
 Ovuvuevuevue Enyetuenwuevue Ugbemugbem Osas wants to eat watermelon.
 
 He has n watermelons and each one has a specific index denote as ai. The watermelons are store in a cylindrical(圓柱狀) box. Osas wants to eat a watermelon indexed ai. But if the watermelon indexed ai is not on the top, he needs to eat all watermelon above the watermelon indexed ai.
@@ -42,7 +42,7 @@ Third line contains n integer b1 ~ bn which denote as the order of the index tha
 ```
 
 
-##Output
+## Output
 output contains one line.
 
 output n integer means the number of watermelons that each time Osas eat. Separate each number by a blank but don't print the blank after the last number.
@@ -54,7 +54,7 @@ remember to print \n at the end of output.
 3 0 2 0 0
 ```
 
-##解題想法
+## 解題想法
 1.  開一個陣列W儲存所有西瓜狀態(吃掉0/還在1)
 2.  從B序列開始迴圈
       每次先看W中是否被吃掉(被吃掉了就直接輸出0)
