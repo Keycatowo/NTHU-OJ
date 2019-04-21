@@ -1,5 +1,5 @@
 #include <stdio.h>
-char S[10^6];
+char S[1000000];
 
 
 /*
