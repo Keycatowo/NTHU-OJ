@@ -15,6 +15,7 @@
 
 
 ![Fig 1](Fig1.jpg)
+
 Fig 1. 此為sample testcase的第一組DAG。[0, 1, 2, 3, 5, 4] , [1, 0, 5, 2, 4, 3], ...皆為正確的topological order，但以字典序的角度來說[0, 1, 2, 3, 5, 4]是字典序最小的。
 
 ## Input
