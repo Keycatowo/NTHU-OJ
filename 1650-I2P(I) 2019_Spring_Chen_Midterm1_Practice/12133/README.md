@@ -45,13 +45,13 @@ First line is the string a.
 
 Second line is the string b.
 
-the length of the two string are the same and the length is from 1~105 ( 1 <= length <= 105 )
+the length of the two string are the same and the length is from 1~10^5 ( 1 <= length <= 10^5 )
 ```
 apapapap
 papapapa
 ```
 > 2行字串輸入
-    長度相等且介於1~105之間
+    長度相等且介於1~10^5之間
 
 
 ## Output
@@ -65,3 +65,71 @@ remember to print \n at the end of output.
 ```
 YES
 ```
+## 解題方向
+
+遞迴寫法
+1. 先判斷長度
+  2. 奇數：判斷是否相等
+  3. 偶數：拆兩個部分丟遞迴
+陣列丟進去寫法
+  `(Al,Ar,Bl,Br)`分別記錄兩個陣列的頭尾
+
+### 1902914 AC
+```
+#include <stdio.h>
+#include <stdbool.h>
+
+char A[100000];
+char B[100000];
+
+bool is_equal(int Al,int Ar,int Bl,int Br){
+    /// length 1
+    //if(Al==Ar) return (A[Al]==B[Bl]);
+
+    /// can  devide
+    if((Ar-Al))// 0~7, even length is 1
+    {
+        return
+        (
+            (is_equal(Al,(Al+Ar)/2,Bl,(Bl+Br)/2) && (is_equal((Al+Ar)/2+1,Ar,(Bl+Br)/2+1,Br)))
+            // 0~
+            ||
+            (is_equal(Al,(Al+Ar)/2,(Bl+Br)/2+1,Br) && (is_equal((Al+Ar)/2+1,Ar,Bl,(Bl+Br)/2)))
+        );
+    }
+    /// can't devide
+    else
+    {
+        // all should same
+        for(int i=0;i<=(Ar-Al);i++){
+            if(A[Al+i]!=B[Bl+i]) return false;
+        }
+        return true;
+    }
+
+
+}
+int getline(char* Seq){
+    char tmp;
+    int i=0;
+    while( (tmp=getchar())!='\n' ){
+        Seq[i]=tmp;
+        i++;
+    }
+    return i;
+}
+void papa_judge(){
+    int length;
+    length=getline(A);
+    getline(B);
+    if(is_equal(0,length-1,0,length-1))
+        printf("YES\n");
+    else
+        printf("NO\n");
+}
+int main(){
+    papa_judge();
+    return 0;
+}
+```
+原本還另外判斷了長度為1，後來發現其實它和奇數長度一樣都屬於不可分割，所以不用另外做判斷。
