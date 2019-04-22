@@ -152,3 +152,14 @@ void output(){
 4. RTE
 5. RTE
 6. RTE
+
+### 1901586 AC
+修正宣告方式
+```
+int W[200001];    // 1/0: Is watermelon alive?
+int A[200000];      // watermelon storage sequence
+int B[200000];      // watermelon eat sequence
+int N;              // 1~2*10^5
+int pos=0;          // now place to eat(index to A_seq)
+int R[200000];      // store the answer waiting to print
+```
