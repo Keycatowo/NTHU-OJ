@@ -48,9 +48,9 @@ ab
 ```
 
 ## 解題方向及記錄
-因為題目保證good string 題目保證只會有一組解答，所以good string 只有可能是aaaabbbb這樣的形式。
-如果判斷是good的話，輸出頭尾即可。
-如果是長度為奇數，必定bad。
+~因為題目保證good string 題目保證只會有一組解答，所以good string 只有可能是aaaabbbb這樣的形式。~
+~如果判斷是good的話，輸出頭尾即可。~
+~如果是長度為奇數，必定bad。~
 
 ### 初次Submmit-1900986 -NA（0/4)
 ```
@@ -72,11 +72,11 @@ int main(){
 
 }
 ```
-可能是只有想到good的處理方式
-似乎還沒考慮到全部bad的可能，如：aabca應該是bad(a>2)，但在原本的判斷中沒考慮到這個可能。
-改進方向：將good/bad分開處理結果，先專門判斷是否bad。
+~可能是只有想到good的處理方式~
+~似乎還沒考慮到全部bad的可能，如：aabca應該是bad(a>2)，但在原本的判斷中沒考慮到這個可能。~
+~改進方向：將good/bad分開處理結果，先專門判斷是否bad。~
 
-做法：增加max_count function
+~做法：增加max_count function~
 ```
 int max_count(char* Seq,int length){
     int alphabet[26];
@@ -98,7 +98,7 @@ int max_count(char* Seq,int length){
 ```
 ### 重新釐清題意 1901178 -NA（2/4）
 測試過各種組合後都無法通過，後來在iLms上看到助教對於同學的回覆
-> 測資的string是不是good string不重要
+> **測資的string是不是good string不重要**
 你要找的是這個string有沒有good string存在，如果有的話輸出最短的那個，和上面同學說的一樣
 
 所以原來不用判斷整個string是否good，只要找到最小的即可————即第一次相異的那個
