@@ -31,6 +31,7 @@ Help Mr. Yasuoo to answer these questions before he starts feeding, ASAP!
  ⠄⠄⠈⡍⠻⣿⣿⣿⣿⠟⠋⢁⣼⠿⠋⠉⠄⠄⠄⠄
  ⠄⠄⠄⠈⠴⢬⣙⣛⡥⠴⠂⠄⠄⠄⠄⠄⠄⠄⠄⠄...
 (the photo of the famous streamer)
+
 > 給一串長的字串和短的目標以及固定範圍
   每次求範圍內出現短的字串的次數
 
@@ -82,6 +83,7 @@ Your program should present a single '\n' at the end of output.
   1. 要求範圍內的次數
   2. 範圍內最後一個合法值-範圍前一個值
   3. times[r-n+1]-times[l-1]
+  ![Fig 2](Fig2.png)
 
 
 ## 解題記錄
