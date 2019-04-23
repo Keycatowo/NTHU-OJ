@@ -49,5 +49,5 @@ int cpmpare(const void *A ,const void *B){
   2. 右邊含，但位移n
   3. times[r-n+1]-times[l-1]
 4. 畫離散方格圖幫助思考
-![Fig 1](\12140\Fig1.png)
-![Fig 2](\12140\Fig2.png)
+![Fig 1](12140/Fig1.png)
+![Fig 2](12140/Fig2.png)
