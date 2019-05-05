@@ -3,7 +3,7 @@
 using namespace std;
 
 int I[100],D[100];
-
+int L;
 class node
 {
     public:
@@ -39,16 +39,17 @@ int main() { _
     cin>>to_delete_length;
     for(int i=0;i<to_delete_length;i++)
         cin>>D[i];
+    L=to_insert_length;
 
     /// Build
-    node *root =new node(I[0]);
+    node* root =new node(I[0]);
     for(int i=1;i<to_insert_length;i++)
         Insert(root,I[i]);
     /// Delete
     for(int i=0;i<to_delete_length;i++)
         Del(root,D[i]);
     /// Show
-    if(root==NULL) cout<<"\n";
+    if(L==0) cout<<"\n";
     else
     {
         preorder(root);
@@ -111,6 +112,7 @@ node* Del(node* root,int target)
     else if(target < root->data) root->left  = Del(root->left ,target);
     else    // Find target.
     {
+        L--;
         /// case 1: No child
         if(root->left==NULL && root->right==NULL)
         {
