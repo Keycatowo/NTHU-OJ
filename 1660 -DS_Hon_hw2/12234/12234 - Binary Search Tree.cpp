@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 #define _ ios_base::sync_with_stdio(0);cin.tie(0);
-
 using namespace std;
+
+int I[100],D[100];
 
 class node
 {
@@ -25,23 +26,35 @@ void preorder(node *root);
 node* FindMin(node *root);
 node* Del(node* root,int target);
 
+
+
 int main() { _
-    node *root  = new node(4);
-    Insert(root,2);
-    Insert(root,1);
-    Insert(root,3);
-    Insert(root,10);
-    Insert(root,12);
-    Insert(root,11);
-    Insert(root,5);
-    Insert(root,13);
-    preorder(root);
-    Del(root,10);
-    preorder(root);
 
+    freopen("sample input.txt","r",stdin);
+    /// input
+    int to_insert_length,to_delete_length;
+    cin>>to_insert_length;
+    for(int i=0;i<to_insert_length;i++)
+        cin>>I[i];
+    cin>>to_delete_length;
+    for(int i=0;i<to_delete_length;i++)
+        cin>>D[i];
 
-    //cout<<root->data<<root->right->left->data;
-    //if(Search_BST(root,10)==NULL) cout<<"not";
+    /// Build
+    node *root =new node(I[0]);
+    for(int i=1;i<to_insert_length;i++)
+        Insert(root,I[i]);
+    /// Delete
+    for(int i=0;i<to_delete_length;i++)
+        Del(root,D[i]);
+    /// Show
+    if(root==NULL) cout<<"\n";
+    else
+    {
+        preorder(root);
+        cout<<"\n";
+    }
+
 	return 0;
 }
 
