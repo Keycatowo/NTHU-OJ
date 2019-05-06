@@ -2,8 +2,8 @@
 #include <cstdbool>
 #define _ ios_base::sync_with_stdio(0);cin.tie(0);
 using namespace std;
-int pre[65536],in[65536],post[65536];
-int pos;
+int pre[65536],in[65536],post[65536],out[65536];
+int pos,pos2;
 
 class node
 {
@@ -37,8 +37,9 @@ void postorder(int in_start,int in_end)
 
     postorder(in_start,m-1);    //L
     postorder(m+1,in_end);      //R
-    cout<<show<<" ";            //D
-
+//    cout<<show<<" ";            //D
+    out[pos2]=show;
+    pos2++;
 }
 void preorder(int in_start,int in_end,int post_start,int post_end)
 {
@@ -46,7 +47,9 @@ void preorder(int in_start,int in_end,int post_start,int post_end)
     int m=Findin(post[post_end])-in_start;
     int show=post[post_end];
 
-    cout<<show<<" ";                                                    //D
+//    cout<<show<<" ";                                                    //D
+    out[pos]=show;
+    pos++;
     preorder(in_start,in_start+m-1,post_start,post_start+m-1);          //L
     preorder(in_start+m+1,in_end,post_start+m,post_end-1);              //R
 
@@ -65,6 +68,8 @@ int main(){_
         cin>>in[i];
     pos=0;
     postorder(0,N1-1);
+    for(int i=0;i<N1;i++)
+        cout<<out[i]<<" ";
     cout<<"\n";
     /// N2
     cin>>N2;
@@ -78,8 +83,10 @@ int main(){_
 //    for(int i=0;i<N2;i++)
 //        cout<<in[i];
 //    cout<<"\n";
-
+    pos=0;
     preorder(0,N2-1,0,N2-1);
+    for(int i=0;i<N2;i++)
+        cout<<out[i]<<" ";
     cout<<"\n";
     return 0;
 }
