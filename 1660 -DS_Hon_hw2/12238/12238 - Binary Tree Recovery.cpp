@@ -5,16 +5,16 @@ using namespace std;
 int pre[65536],in[65536],post[65536],out[65536];
 int pos,pos2;
 
-int Findin(int what)
+int Findin(int what,int start)
 {
-    for(int i=0;i<65536;i++)
+    for(int i=start;i<65536;i++)
         if(in[i]==what) return i;
 }
 void postorder(int in_start,int in_end)
 {
     if(in_start> in_end) return;
 
-    int m=Findin(pre[pos]);
+    int m=Findin(pre[pos],in_start);
     int show=pre[pos];
     pos++;
 
@@ -30,8 +30,10 @@ void preorder(int in_start,int in_end,int post_start,int post_end)
 //    int m=Findin(post[post_end])-in_start;
     int m;
     for(int i=in_start;i<=in_end;i++){
-        if(in[i]==post[post_end])
+        if(in[i]==post[post_end]){
             m=i-in_start;
+            break;
+        }
     }
     int show=post[post_end];
 
