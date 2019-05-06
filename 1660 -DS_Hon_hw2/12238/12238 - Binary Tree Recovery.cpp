@@ -5,24 +5,6 @@ using namespace std;
 int pre[65536],in[65536],post[65536],out[65536];
 int pos,pos2;
 
-class node
-{
-    public:
-    int data;
-    node* left;
-    node* right;
-
-    node(int data)
-    {
-        this->data = data;
-        this->left = NULL;
-        this->right= NULL;
-    }
-
-
-};
-
-
 int Findin(int what)
 {
     for(int i=0;i<65536;i++)
@@ -31,6 +13,7 @@ int Findin(int what)
 void postorder(int in_start,int in_end)
 {
     if(in_start> in_end) return;
+
     int m=Findin(pre[pos]);
     int show=pre[pos];
     pos++;
@@ -44,7 +27,12 @@ void postorder(int in_start,int in_end)
 void preorder(int in_start,int in_end,int post_start,int post_end)
 {
     if(in_start> in_end||post_start>post_end) return;
-    int m=Findin(post[post_end])-in_start;
+//    int m=Findin(post[post_end])-in_start;
+    int m;
+    for(int i=in_start;i<=in_end;i++){
+        if(in[i]==post[post_end])
+            m=i-in_start;
+    }
     int show=post[post_end];
 
 //    cout<<show<<" ";                                                    //D
