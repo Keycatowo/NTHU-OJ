@@ -59,3 +59,16 @@ Remember th print a '\n' at the end of the output.
 ```
 9284380
 ```
+## 解題方向
+考慮整數求mod特性
+>
+(a*b)%p = ( (a%p) * (b%p) )%p
+
+let a*b=x^y
+1. if y is even, x^y %m = ( (x^(y/2) %m) * (x^(y/2) %m) )%m
+2. if y is odd, x^y %m = ( (x^(y/2) %m) * (x^(y/2) %m) * (x^1%m) )%m
+3. if y is zero, x^y %m = 1%m (consider include m=1)
+
+### 1918404 WA(6/8)
+第7 8筆測資WA，推測可能是數值太大，故做呼叫時修正`fast_mod(x%m,y,m)`
+### 1914810 AC
