@@ -37,7 +37,7 @@ public:
     ~List()
     {
         Node* temp;
-        while(!head){
+        while(head!=NULL){
             temp = head;
             head = head->right;
             delete temp;
@@ -135,7 +135,7 @@ public:
     {
         if(!visited[Source]) visited[Source] = true;    // visit it
 
-        if(neighbors->size()<=1)                         // size 0 is all graph one node,size 1 is leaf because only has father
+        if(neighbors[Source].size()<=1)                         // size 0 is all graph one node,size 1 is leaf because only has father
             return 0;                                   // to leaf(itself) is distance 0
 
         int d,minD = MAX;
@@ -154,18 +154,18 @@ public:
         return (1+minD);
     }
 
-    int max_leaf_distance(int Source)
+    int max_leaf_distance(int Source, int index)
     {
-        if(!visited[Source]) visited[Source] = true;
+        if(!visited[index]) visited[index] = true;
 
-        if(neighbors->size() <= 1) return 0;
+        if(neighbors[index].empty() || (neighbors[index].size()==1 && Source!=index) ) return 0;
 
         int d,maxD = 0;
-        for(Node* cur = neighbors[Source].head; cur != NULL; cur = cur->right)
+        for(Node* cur = neighbors[index].head; cur != NULL; cur = cur->right)
         {
             if(!visited[cur->NodeData])
             {
-                d = max_leaf_distance(cur->NodeData);
+                d = max_leaf_distance(Source,cur->NodeData);
                 maxD = max(d,maxD);
             }
         }
@@ -174,17 +174,23 @@ public:
 
     int sum_of_Mi(int Source, int Distance)
     {
-        queue< pair<int,int> > to_do_list;              //with distance
-        to_do_list.push(make_pair(Source,0));
+//        queue< pair<int,int> > to_do_list;              //with distance
+//        to_do_list.push(make_pair(Source,0));
+        List* indexQ = new List();
+        indexQ->push_back(Source);
+        List* distanQ= new List();
+        distanQ->push_back(0);
         visited[Source]= true;
 
         int sum=0, now_D=0;                     //sum for return, now_D  is 0,1,...,Distance
-        int index, d_each, part_min;
-        while(!to_do_list.empty())
+        int index, d_each, part_min = Source;
+        while(!indexQ->empty())
         {
-            index  = to_do_list.front().first;
-            d_each = to_do_list.front().second;
-            to_do_list.pop();
+//            index  = to_do_list.front().first;
+//            d_each = to_do_list.front().second;
+//            to_do_list.pop();
+            index = indexQ->pop_front();
+            d_each= distanQ->pop_front();
 
             if(d_each != now_D)                 // every time when distance go to next step
             {
@@ -204,7 +210,9 @@ public:
                     if(!visited[cur->NodeData])
                     {
                         visited[cur->NodeData] = true;
-                        to_do_list.push(make_pair(cur->NodeData,d_each+1));
+//                        to_do_list.push(make_pair(cur->NodeData,d_each+1));
+                        indexQ->push_back(cur->NodeData);
+                        distanQ->push_back(d_each+1);
                     }
                 }
             }
@@ -212,6 +220,8 @@ public:
         sum += part_min;
         //queue< pair <int,int> > tmp;
         //swap(tmp,to_do_list);
+        delete indexQ;
+        delete distanQ;
         return sum;
     }
 
@@ -219,11 +229,11 @@ public:
 
 
 
-int main(){
+int main(){_
 
     /// input
 
-    freopen("sample input.txt","r",stdin);
+    //freopen("sample input.txt","r",stdin);
         // line 1
     int N; cin >> N;
 
@@ -242,7 +252,7 @@ int main(){
     KT->reset_visited();
     int dBC = KT->min_leaf_distance(B);
     KT->reset_visited();
-    int dBF = KT->max_leaf_distance(B);
+    int dBF = KT->max_leaf_distance(B,B);
     KT->reset_visited();
     int sum_M = KT->sum_of_Mi(B,dBF-dBC);           // dBF >= dBC
 
