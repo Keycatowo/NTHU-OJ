@@ -9,6 +9,20 @@ int sum=0;
 int E=0;              // 邊界
 int N,M;
 
+void init(){
+    for(int i=0;i<MAX_N;i++)
+    {
+        Q[i]=C[i]= -100;
+    }
+}
+void show(){
+    for(int i=0;i<E;i++)
+        printf("%d ",C[i]);
+    printf("\n");
+    for(int i=0;i<E;i++)
+        printf("%d ",Q[i]);
+    printf("\n\n");
+}
 int diff(int a,int b){
     return (a>b?(a-b):(b-a));
 }
@@ -19,7 +33,8 @@ bool valid_C(int pos,int checks){
         只要檢查是否有在同一橫列即可
     */
     for(int i=0;i<checks;i++){
-        if(C[i] == pos) return false;
+        if(C[i] == pos) return false;                           // 檢查是否會被橫線攻擊
+        if( diff(i,checks) == diff(Q[i],pos)) return false;     // 檢查是否會被斜線攻擊（只考慮Q）
     }
     return true;
 }
@@ -35,38 +50,42 @@ bool valid_Q(int pos,int checks){
             行差=列差 即在同一斜線
     */
     for(int i=0;i<checks;i++){
-        if( diff(i,checks) == diff(C[i],pos)) return false;
+        if(C[i] == pos) return false;                           // 檢查是否會被橫線攻擊
+        if( diff(i,checks) == diff(C[i],pos)) return false;     // 檢查是否會被斜線攻擊（考慮C）
     }
     return true;
 
 }
 
 void solve(int Qs,int Cs,int now_col){
-    if(Qs==0 && Cs==0) sum++;   //當沒有要放的時候，表示完成一種棋面
+    if(Qs==0 && Cs==0)
+    {
+//        show();
+        sum++;   //當沒有要放的時候，表示完成一種棋面
+    }
     else
     {
         for(int i=0; i<E; i++)
         {
-            if(valid_C(i,now_col))   // 先檢查是否可以放城堡
+            /// C
+            if(valid_C(i,now_col) && Cs>0)   // 先檢查是否可以放城堡
             {
-                /// C
-                if(Cs>0)
-                {
-                   C[now_col] = i;              // 放城堡
-                   solve(Qs,Cs-1,now_col+1);    // 放完往下走
-                   C[now_col] = 0;              // 走完記得拿掉
-                }
-
-                /// Q
-                if(valid_Q(i,now_col) && Qs>0)  //再檢查是否可以放皇后
-                {
-                    C[now_col] = i;
-                    Q[now_col] = i;
-                    solve(Qs-1,Cs,now_col+1);
-                    C[now_col] = 0;
-                    Q[now_col] = 0;
-                }
+                C[now_col] = i;              // 放城堡
+                solve(Qs,Cs-1,now_col+1);    // 放完往下走
+                C[now_col] = -100;              // 走完記得拿掉
             }
+
+            /// Q
+            if(valid_Q(i,now_col) && Qs>0)  //再檢查是否可以放皇后
+            {
+                C[now_col] = i;
+                Q[now_col] = i;
+                solve(Qs-1,Cs,now_col+1);
+                C[now_col] = -100;
+                Q[now_col] = -100;
+            }
+
+
         }
     }
 }
@@ -76,6 +95,7 @@ int main()
 {
     scanf("%d %d",&N,&M);
     E= N+M;
+    init();
     solve(N,M,0);
     printf("%d\n",sum);
     return 0;
