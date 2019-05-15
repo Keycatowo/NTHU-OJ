@@ -28,8 +28,8 @@ Hint：以 BT 的角度而言，preorder 跟 postorder 是一體兩面。
 1 2 4 8 9 5 10 3 6 7
 8 4 9 2 10 5 1 6 3 7
 8
-1 5 4 7 3 2 6 8
-1 5 7 4 8 3 6 2
+8 4 5 2 6 7 3 1
+8 4 2 5 1 6 3 7
 ```
 
 ## Output
@@ -41,5 +41,24 @@ postorder 或 preorder traversal 的結果輸出格式：
 每個 index of node 後面加一個空格，最後加一個換行字元結尾。
 ```
 8 9 4 10 5 2 6 7 3 1
-8 7 3 1 4 6 3 2
+--8 7 3 1 4 6 3 2--
+1 2 4 8 5 3 6 7
 ```
+
+## 解題方向
+    D
+  /   \
+ L     R
+1. preorder: DLR
+2. inorder:  LDR
+3. postorder:LRD
+
+void postorder(int pre_start,int pre_end,int in_start,int in_end)
+{
+    if(pre_start>pre_end || in_start> in_end) return;
+    int m=Findin(pre[pos])-in_start;
+
+    postorder(pre_start+1,pre_start+m-1,)
+
+
+}
