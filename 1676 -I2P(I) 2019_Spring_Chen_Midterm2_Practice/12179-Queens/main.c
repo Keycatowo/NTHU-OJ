@@ -28,13 +28,33 @@ int N;
 int sum=0;
 void solve2(int row, int col, int J, int L){
     int able = ((1<<N)-1) & ~(col|J|L);
-    while(able){
+    /*
+        (1<<N)-1    全滿
+        &           去掉
+        ~col|J|L    不能放的相反->可以放的
+
+    */
+    while(able){        // 只要還有可以放的
         int pos = able & -able;
-        able ^= pos;
-        if(row == N-1)
+        /// lowbit 操作 取出最右側1
+        /* example
+                     a = 00110100
+                    ~a = 11001011
+                    -a = 11001100
+                a & -a = 00000100
+        */
+        able ^= pos;    // 取出之後able中拿掉
+        if(row == N-1)  //到最後一行了
             sum++;
         else
             solve2(row+1,col|pos,(J|pos)>>1,(L|pos)<<1);
+
+    /*
+        row+1       下一行
+        col|pos     行列相同對應
+        (J|pos)>>1  撇捺轉參傳遞
+        (L|pos)<<1  或完移一相異
+    */
     }
 }
 
