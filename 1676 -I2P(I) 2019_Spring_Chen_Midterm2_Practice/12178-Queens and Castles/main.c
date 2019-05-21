@@ -91,12 +91,49 @@ void solve(int Qs,int Cs,int now_col){
 }
 
 
+
+void solve2(int row,int col,int QJ,int QL,int CJ,int CL,int Qs,int Cs){
+//    if(Qs==0 && Cs==0) sum++;
+    if(Cs>=0){
+        int able = ((1<<E)-1) & ~(col|QJ|QL);
+        while(able){
+            int pos = able & -able;
+            able ^= pos;
+            if(row == E-1) sum++;
+            else
+                solve2(row+1,col|pos,QJ>>1,QL<<1,(CJ|pos)>>1,(CL|pos)<<1,Qs,Cs-1);
+        }
+    }
+    if(Qs>=0){
+        int able = ((1<<E)-1) & ~(col|QJ|QL|CJ|CL);
+        while(able){
+            int pos = able & -able;
+            able ^= pos;
+            if(row == E-1) sum++;
+            else
+                solve2(row+1,col|pos,(QJ|pos)>>1,(QL|pos)<<1,CJ>>1,CL<<1,Qs,Cs-1);
+        }
+    }
+
+//    int Cable = ((1<<E)-1) & ~(col|QJ|QL);
+//    int Qable = ((1<<E)-1) & ~(col|QJ|QL|);
+//
+
+
+
+
+}
+
+
 int main()
 {
     scanf("%d %d",&N,&M);
     E= N+M;
     init();
     solve(N,M,0);
+    printf("%d\n",sum);
+    sum=0;
+    solve2(0,0,0,0,0,0,N,M);
     printf("%d\n",sum);
     return 0;
 }
