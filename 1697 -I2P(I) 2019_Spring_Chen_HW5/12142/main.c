@@ -13,7 +13,7 @@ int compare_str_ptr(const void *a, const void *b)
     char **pb;
     pa = (char **) a;
     pb = (char **) b;
-    return strcmp(*pa, *pb);
+    return -strcmp(*pa, *pb);
 }
 
 
@@ -27,11 +27,15 @@ int main(void)
     gets(strs[0]);
     for (i=0; i<n; i++){
         gets(strs[i]);
+        ptrs[i] = strs[i];
     }
 
 
+    qsort(ptrs, n, sizeof(char*), compare_str_ptr);
+    for(i=0;i<n;i++)
+        printf("%s",ptrs[i]);
 
-
+/*
     printf("strs: ");
     for (i=0; i<=n; i++) {
         printf("%s ", strs[i]);
@@ -66,6 +70,8 @@ int main(void)
     for (i=0; i<n; i++) {
         printf("%s ", strs[i]);
     }
+*/
+
 
     return 0;
 }
