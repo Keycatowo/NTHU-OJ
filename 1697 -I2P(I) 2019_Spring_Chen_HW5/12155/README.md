@@ -55,6 +55,7 @@ There's only one remaining cat-toast located at (500,500) and spawned 2 black ho
 
 ## 解題過程
 這題應該可以用DFS解，但因為測資數量很小所以就很想先暴力做看看XD
+
 ### 暴力解
 1. 對於每個點都對全部點(實際上是三角往後即可)都求距離
 2. 如果距離有小於的話根據雙方是否已經有group的條件去設
@@ -63,6 +64,7 @@ There's only one remaining cat-toast located at (500,500) and spawned 2 black ho
      1. 沒有的比較小→把有的全部更新
      2. 沒有的比較大→把沒有的設成有的那個
    3. 兩方都有，把大的那方全更新成小的那方
+
 #### 1941954 AC (最慢8ms)
 ```
 #include <stdio.h>
@@ -168,6 +170,99 @@ int main()
     }
     printf("%d %d\n",lonely,count());
 
+    return 0;
+}
+```
+
+### DFS
+1. 掃描任意兩點距離，若符合小於r的條件則在adj上表示有連同。
+2. DFS邊序全部的點
+   1. 記錄~~葉子數量~~，非葉子的根的數量。(blackhole)
+   2. 記錄葉子即根的數量(not blackhole)
+
+#### 194240 WA(3/6)
+如果是計算葉子數量而已的話，會沒考慮到這種情況
+  A
+ / \
+B   C
+這樣應該要算一棵樹而已，如果只算葉子數量就會變成兩顆，所以改成判斷根的形式。
+
+#### 1942424 AC(最慢4ms)
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <math.h>
+#define MAX 1005
+
+int n,r,sum=0,one=0;
+int x[MAX],y[MAX];
+bool adj[MAX][MAX];
+bool visited[MAX];
+int group[MAX];
+
+
+bool DFS(int i){
+    bool is_leaf = true;
+    for(int j=0;j<n;j++)
+        if(adj[i][j] && !visited[j])
+        {
+            visited[j] = true;
+            is_leaf = false;
+            DFS(j);
+        }
+//    if(is_leaf)
+//        sum++;
+    return is_leaf;
+}
+
+void traversal(){
+    ///reset
+    memset(visited,false,n);
+    memset(group,MAX,n);
+    for(int i=0;i<n;i++)
+        if(!visited[i])
+        {
+            visited[i] = true;
+            if(DFS(i))
+                one++;
+            else
+                sum++;
+        }
+}
+
+void input(){
+    scanf("%d %d",&n,&r);
+    for(int i=0;i<n;i++)
+        scanf("%d %d",&x[i],&y[i]);
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if( (x[i]-x[j])*(x[i]-x[j])
+               +(y[i]-y[j])*(y[i]-y[j])
+               <= r*r )
+                adj[i][j]=adj[j][i]=true;
+        }
+    }
+//
+//    for(int i=0;i<n;i++)
+//    {
+//        bool nothing = true;
+//        for(int j=0;j<n;j++)
+//            if(adj[i][j])
+//                nothing = false;
+//        if(nothing) one++;
+//    }
+}
+
+
+int main(){
+    freopen("sample.txt","r",stdin);
+    input();
+    traversal();
+    printf("%d %d\n",one,sum);
     return 0;
 }
 ```
