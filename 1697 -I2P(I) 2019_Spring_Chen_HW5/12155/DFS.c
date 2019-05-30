@@ -21,6 +21,11 @@ bool DFS(int i){
             is_leaf = false;
             DFS(j);
         }
+<<<<<<< HEAD
+=======
+//    if(is_leaf)
+//        sum++;
+>>>>>>> 9123e8856f74381415da6001be1e8416ec056bcf
     return is_leaf;
 }
 
@@ -53,8 +58,23 @@ void input(){
                 adj[i][j]=adj[j][i]=true;
         }
     }
+<<<<<<< HEAD
 }
 
+=======
+//
+//    for(int i=0;i<n;i++)
+//    {
+//        bool nothing = true;
+//        for(int j=0;j<n;j++)
+//            if(adj[i][j])
+//                nothing = false;
+//        if(nothing) one++;
+//    }
+}
+
+
+>>>>>>> 9123e8856f74381415da6001be1e8416ec056bcf
 int main(){
     freopen("sample.txt","r",stdin);
     input();
