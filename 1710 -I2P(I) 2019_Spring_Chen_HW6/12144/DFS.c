@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define Div(a,b) (a/b+(a/b)?1:0)
+#include <math.h>
+#define Div(a,b) (a/b+((a%b>0)?1:0))        // ceil(a/b)
 
 int player_hp,player_atk,pos_x,pos_y;
-bool M[5][5];
-int Hp[5][5];
-int Atk[5][5];
+bool M[5][5];       // have monster
+int Hp[5][5];       // monster's hp
+int Atk[5][5];      // monster's attack
 bool visited[5][5];
 
 void input(int n){
@@ -21,14 +22,15 @@ void input(int n){
 }
 
 int battle(int x,int y,int now_hp){
+    // for the case no monster
     if(!M[x][y]) return now_hp;
+    // otherwise
     int player_times,monster_times;
-    player_times  = Div(Hp[x][y],player_atk);
-    monster_times = Div(now_hp,Atk[x][y]);
-    if(player_times >= monster_times)
+    player_times  = Div(Hp[x][y],player_atk);       // player attack monster
+    monster_times = Div(now_hp,Atk[x][y]);          // monster attack player
+    if(player_times <= monster_times)
     {
-        now_hp -= (player_times-1)*Atk[x][y];
-//        M[x][y] = false;
+        now_hp -= (player_times-1)*Atk[x][y];       // player attack first, so be attacked one times less
         return now_hp;
     }
     else
@@ -37,7 +39,7 @@ int battle(int x,int y,int now_hp){
 
 
 bool edge_check(int x,int y){
-    if(x<0 || y<0 || x>=5 || y>=5) return false;
+    if(x<0 || y<0 || x>4 || y>4) return false;
         else return true;
 }
 
@@ -59,10 +61,10 @@ bool DFS(int x,int y,int now_hp){
             {
                 visited[x+i][y] = true;
                 int result = battle(x+i,y,now_hp);
-                if(result==-1)
+                if(result==-1)      // go there will die
                     check = check || false;
                 else
-                    check = check || DFS(x+i,y,result);
+                    check = DFS(x+i,y,result)||check;     // go there
                 visited[x+i][y] = false;
             }
         }
@@ -79,7 +81,7 @@ bool DFS(int x,int y,int now_hp){
                 if(result==-1)
                     check = check || false;
                 else
-                    check = check || DFS(x,y+i,result);
+                    check = DFS(x,y+i,result)||check;
                 visited[x][y+i] = false;
             }
         }
@@ -87,11 +89,17 @@ bool DFS(int x,int y,int now_hp){
     return check;
 }
 
-
+void reset(){
+    memset(M,false,25);
+    memset(visited,false,25);
+    memset(Hp,0,25);
+    memset(Atk,0,25);
+}
 
 int main()
 {
     freopen("sample.txt","r",stdin);
+    reset();
     int m;
     scanf("%d %d %d",&player_hp,&player_atk,&m);
     input(m);
