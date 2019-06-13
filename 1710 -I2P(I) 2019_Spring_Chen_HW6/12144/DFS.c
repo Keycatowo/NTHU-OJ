@@ -38,6 +38,7 @@ int battle(int x,int y,int now_hp){
 
 bool edge_check(int x,int y){
     if(x<0 || y<0 || x>=5 || y>=5) return false;
+        else return true;
 }
 
 
@@ -95,7 +96,8 @@ int main()
     scanf("%d %d %d",&player_hp,&player_atk,&m);
     input(m);
     if(M[0][0])
-        player_hp -= Hp[0][0];
+        player_hp -= Atk[0][0];
+    visited[0][0] = true;
     if(DFS(0,0,player_hp))
         printf("HEIR OF FIRE DESTROYED\n");
     else
