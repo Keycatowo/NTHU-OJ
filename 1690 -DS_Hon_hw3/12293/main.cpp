@@ -132,8 +132,22 @@ public:
                 cout<<cur->key<<"\n";
         }
     }
+    bool Search(int x){
+        Node *cur = Root;
+        while(cur != NULL)
+        {
+            if(x == cur->key)
+                return true;
+            if(x > cur->key)
+                cur = cur->right;
+            else
+                cur = cur->left;
+        }
+        return false;
+    }
+    Node* pop(Node* cur,int key){
 
-
+    }
 
 };
 
