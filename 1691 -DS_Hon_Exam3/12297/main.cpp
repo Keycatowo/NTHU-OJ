@@ -37,21 +37,71 @@ public:
         delete cur;
     }
 
-    Node* L_rotate(Node *cur){
-        Node *new_root = cur->right;
-        cur->right     = new_root->left;
-        new_root->left = cur;
-        if(cur == Root)
-            Root = new_root;
-        return new_root;
+    Node* L_rotate(Node *cur, int x){
+        if(cur == NULL)
+            return cur;
+        else if(x > cur->key)
+            cur->right = L_rotate(cur->right,x);
+        else if(x < cur->key)
+            cur->left  = L_rotate(cur->left,x);
+        else
+        {
+            Node *new_root = cur->right;
+            cur->right = new_root->left;
+            new_root->left = cur;
+            return new_root;
+        }
     }
-    Node* R_rotate(Node *cur){
-        Node *new_root = cur->left;
-        cur->left      = new_root->right;
-        new_root->right= cur;
-        if(cur == Root)
-            Root = new_root;
-        return new_root;
+    Node* R_rotate(Node *cur,int x){
+        if(cur == NULL)
+            return cur;
+        else if(x > cur->key)
+            cur->right = R_rotate(cur->right,x);
+        else if(x < cur->key)
+            cur->left  = R_rotate(cur->left,x);
+        else
+        {
+            Node *new_root = cur->left;
+            cur->left      = new_root->right;
+            new_root->right= cur;
+            return new_root;
+        }
+    }
+    Node* LR_rotate(Node *cur, int x){
+        if(cur == NULL)
+            return cur;
+        else if(x > cur->key)
+            cur->right = R_rotate(cur->right,x);
+        else if(x < cur->key)
+            cur->left  = R_rotate(cur->left,x);
+        else
+        {
+            // L
+            cur->left =L_rotate(cur->left,cur->left->key);
+            // R
+            Node *new_root = cur->left;
+            cur->left      = new_root->right;
+            new_root->right= cur;
+            return new_root;
+        }
+    }
+    Node* RL_rotate(Node *cur, int x){
+        if(cur == NULL)
+            return cur;
+        else if(x > cur->key)
+            cur->right = R_rotate(cur->right,x);
+        else if(x < cur->key)
+            cur->left  = R_rotate(cur->left,x);
+        else
+        {
+            // R
+            cur->right =R_rotate(cur->right,cur->right->key);
+            // L
+            Node *new_root = cur->right;
+            cur->right = new_root->left;
+            new_root->left = cur;
+            return new_root;
+        }
     }
     Node* ins(int x,Node *cur){
         /// recursive insert place
@@ -119,24 +169,16 @@ int main(){
                     avl.Insert(x);
                     break;
                 case 1:
-                    tmp = avl.Search(x);
-                    avl.L_rotate(tmp);
+                    avl.Root = avl.L_rotate(avl.Root,x);
                     break;
                 case 2:
-                    tmp = avl.Search(x);
-                    avl.R_rotate(tmp);
-                    break;
-                case 4:
-                    tmp = avl.Search(x);
-//                    if(tmp->right != NULL)
-                        tmp->right = avl.R_rotate(tmp->right);
-                    avl.L_rotate(tmp);
+                    avl.Root = avl.R_rotate(avl.Root,x);
                     break;
                 case 3:
-                    tmp = avl.Search(x);
-//                    if(tmp->left != NULL)
-                        tmp->left = avl.L_rotate(tmp->left);
-                    avl.R_rotate(tmp);
+                    avl.Root = avl.LR_rotate(avl.Root,x);
+                    break;
+                case 4:
+                    avl.Root = avl.RL_rotate(avl.Root,x);
                     break;
             }
 
