@@ -5,13 +5,12 @@ using namespace std;
 
 class Node {
 public:
-    int key,height;
+    int key;
     Node* left;
     Node* right;
 
     Node(int key) {
         this->key = key;
-        height = 1;
         left = right = NULL;
     }
 
@@ -20,13 +19,11 @@ public:
 class AVL {
 public:
     Node* Root;
-    char dir[3];
     /// basic
     AVL(){
         Root = NULL;
     }
     ~AVL(){
-        dir[0] = dir[1] = dir[2] = '\0';
         destroy(Root);
         Root = NULL;
     }
@@ -37,72 +34,110 @@ public:
         delete cur;
     }
 
-    Node* L_rotate(Node *cur, int x){
-        if(cur == NULL)
-            return cur;
-        else if(x > cur->key)
-            cur->right = L_rotate(cur->right,x);
-        else if(x < cur->key)
-            cur->left  = L_rotate(cur->left,x);
-        else
+    Node* L_rotate(Node *cur){
+        Node *new_root = cur->right;
+        cur->right     = new_root->left;
+        new_root->left = cur;
+        return new_root;
+    }
+    Node* R_rotate(Node *cur){
+        Node *new_root = cur->left;
+        cur->left      = new_root->right;
+        new_root->right= cur;
+        return new_root;
+    }
+    Node* LR_rotate(Node *cur){
+        cur->left =  L_rotate(cur->left);
+        cur = R_rotate(cur);
+        return cur;
+    }
+    Node* RL_rotate(Node *cur){
+        cur->right= R_rotate(cur->right);
+        cur = L_rotate(cur);
+        return cur;
+    }
+
+    Node* L(Node *target){
+        Node *cur = Root;
+        // if rotate axis the root
+        if(cur == target)
+            return Root = L_rotate(target);
+        // if not in the root
+        while(1)
         {
-            Node *new_root = cur->right;
-            cur->right = new_root->left;
-            new_root->left = cur;
-            return new_root;
+            /// in the next level
+            if(cur->right == target)
+                return cur->right = L_rotate(target);
+            if(cur->left == target)
+                return cur->left = L_rotate(target);
+
+            /// if not in the next level, go down
+            if(target->key > cur->key)
+                cur = cur->right;
+            else if (target->key < cur->key)
+                cur = cur->left;
+        }
+
+    }
+    Node* R(Node *target){
+        Node *cur = Root;
+        // if rotate axis the root
+        if(cur == target)
+            return Root = R_rotate(target);
+        // if not in the root
+        while(1)
+        {
+            /// in the next level
+            if(cur->right == target)
+                return cur->right = R_rotate(target);
+            if(cur->left == target)
+                return cur->left = R_rotate(target);
+
+            /// if not in the next level, go down
+            if(target->key > cur->key)
+                cur = cur->right;
+            else if (target->key < cur->key)
+                cur = cur->left;
+        }
+
+    }
+    Node* LR(Node *target){
+        Node *cur = Root;
+        // if rotate axis the root
+        if(cur == target)
+            return Root = LR_rotate(target);
+        while(1){
+            /// in the next level
+            if(cur->right == target)
+                return cur->right = LR_rotate(target);
+            if(cur->left  == target)
+                return cur->left  = LR_rotate(target);
+            /// if not in the next level, go down
+            if(target->key > cur->key)
+                cur = cur->right;
+            else if (target->key < cur->key)
+                cur = cur->left;
         }
     }
-    Node* R_rotate(Node *cur,int x){
-        if(cur == NULL)
-            return cur;
-        else if(x > cur->key)
-            cur->right = R_rotate(cur->right,x);
-        else if(x < cur->key)
-            cur->left  = R_rotate(cur->left,x);
-        else
-        {
-            Node *new_root = cur->left;
-            cur->left      = new_root->right;
-            new_root->right= cur;
-            return new_root;
-        }
+    Node* RL(Node *target){
+        Node *cur = Root;
+            // if rotate axis the root
+            if(cur == target)
+                return Root = RL_rotate(target);
+            while(1){
+                /// in the next level
+                if(cur->right == target)
+                    return cur->right = RL_rotate(target);
+                if(cur->left  == target)
+                    return cur->left  = RL_rotate(target);
+                /// if not in the next level, go down
+                if(target->key > cur->key)
+                    cur = cur->right;
+                else if (target->key < cur->key)
+                    cur = cur->left;
+            }
     }
-    Node* LR_rotate(Node *cur, int x){
-        if(cur == NULL)
-            return cur;
-        else if(x > cur->key)
-            cur->right = R_rotate(cur->right,x);
-        else if(x < cur->key)
-            cur->left  = R_rotate(cur->left,x);
-        else
-        {
-            // L
-            cur->left =L_rotate(cur->left,cur->left->key);
-            // R
-            Node *new_root = cur->left;
-            cur->left      = new_root->right;
-            new_root->right= cur;
-            return new_root;
-        }
-    }
-    Node* RL_rotate(Node *cur, int x){
-        if(cur == NULL)
-            return cur;
-        else if(x > cur->key)
-            cur->right = R_rotate(cur->right,x);
-        else if(x < cur->key)
-            cur->left  = R_rotate(cur->left,x);
-        else
-        {
-            // R
-            cur->right =R_rotate(cur->right,cur->right->key);
-            // L
-            Node *new_root = cur->right;
-            cur->right = new_root->left;
-            new_root->left = cur;
-            return new_root;
-        }
-    }
+
     Node* ins(int x,Node *cur){
         /// recursive insert place
         if(cur == NULL)
@@ -119,7 +154,6 @@ public:
     }
     void level_order(){
         queue<Node*> Q;
-//        Q.clear();
         if(Root != NULL)
             Q.push(Root);
         while(!Q.empty())
@@ -153,37 +187,42 @@ public:
 
 };
 
-int main(){
+int main(){ _
     freopen("sample.txt","r",stdin);
     int T,n,mode,x;
     cin>>T;
     Node* tmp;
     while(T--){
         cin>>n;
-        AVL avl= AVL();
+        AVL *avl= new AVL();
         while(n--){
             cin>>mode>>x;
             switch (mode)
             {
                 case 0:
-                    avl.Insert(x);
+                    avl->Insert(x);
                     break;
                 case 1:
-                    avl.Root = avl.L_rotate(avl.Root,x);
+                    tmp = avl->Search(x);
+                    avl->L(tmp);
                     break;
                 case 2:
-                    avl.Root = avl.R_rotate(avl.Root,x);
+                    tmp = avl->Search(x);
+                    avl->R(tmp);
                     break;
                 case 3:
-                    avl.Root = avl.LR_rotate(avl.Root,x);
+                    tmp = avl->Search(x);
+                    avl->LR(tmp);
                     break;
                 case 4:
-                    avl.Root = avl.RL_rotate(avl.Root,x);
+                    tmp = avl->Search(x);
+                    avl->RL(tmp);
                     break;
             }
 
         }
-        avl.level_order();
+        avl->level_order();
+        delete avl;
     }
     return 0;
 }
