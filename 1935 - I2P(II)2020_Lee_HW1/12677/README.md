@@ -36,7 +36,10 @@ Output the solo's order.
 1 2 0
 ```
 
-
 ## 解題方向
 + 約瑟夫問題
 + 印出過程
++ 以一個int陣列存index
++ 以一個bool陣列存alive狀態
++ 每次移動步數`step=M%n`來加快速度
+    + **重要！！** 要避免掉step變成0的情況
