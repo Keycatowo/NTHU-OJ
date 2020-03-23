@@ -4,4 +4,4 @@
 P
 GetMax
 SumLevel 5
-AverLevel 3
+AverLevel 0

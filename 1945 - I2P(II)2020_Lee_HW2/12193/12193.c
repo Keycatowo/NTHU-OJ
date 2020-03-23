@@ -132,7 +132,7 @@ void operation(Node* root){
 
         if(strcmp(mode,"SumLevel")==0){
             scanf("%d",&m);
-            if(m>max_level)
+            if(m>max_level||m<1)
                 printf("0\n");
             else
                 printf("%d\n",level_sum[m]);
@@ -140,7 +140,7 @@ void operation(Node* root){
 
         if(strcmp(mode,"AverLevel")==0){
             scanf("%d",&m);
-            if(m>max_level)
+            if(m>max_level||m<1)
                 printf("0\n");
             else
                 printf("%.3f\n",(float)level_sum[m]/level_count[m]);
