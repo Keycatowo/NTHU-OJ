@@ -2,7 +2,7 @@
 
 | 完成狀態 | 題號                                          | 名稱                         | 標籤                        |
 | -------- | --------------------------------------------- | ---------------------------- | --------------------------- |
-|          | [11283](http://140.114.86.238/problem/11283/) | rotate linked list           | `link list`,`partial judge` |
+| AC       | [11283](http://140.114.86.238/problem/11283/) | rotate linked list           | `link list`,`partial judge` |
 | AC       | [11349](http://140.114.86.238/problem/11349/) | Binary Search Tree Traversal | `BST`,`partial judge`       |
 |          | [12183](http://140.114.86.238/problem/12183/) | Fairy Testing                | `BST`,`syntax tree`         |
 | 4/13     | [12655](http://140.114.86.238/problem/12655/) | Chiya and a Colorful Frabric | `string`                    |
