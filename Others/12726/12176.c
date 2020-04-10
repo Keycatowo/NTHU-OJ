@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 #define FILE_MODE 1
 #define SHOW(a) (DEBUG_MODE)?(printf("%s:%d\n",#a,a)):1
 #define SHOW_C(c) (DEBUG_MODE)?printf("%c",c):1
-#define LOGGING(s) (DEBUG_MODE)?printf(s):1
+#define LOGGING(s) (DEBUG_MODE)?printf("%s",s):1
 #define MAX 500
 #define MAX_PUZZLE 50
 
@@ -40,6 +40,40 @@ puzzle create_puzzle(int x,int y){
     }
     return new_puzzle;
 }
+
+puzzle rotate_puzzle(puzzle origin){
+    puzzle new_puzzle;
+
+    new_puzzle.col = origin.row;
+    new_puzzle.row = origin.col;
+
+    LOGGING("ORIGIN\n");
+    for(int i=0;i<origin.row;i++){
+        for(int j=0;j<origin.col;j++){
+            (origin.puzzle_matrix[i][j])?printf("O"):printf("-");
+        }
+        printf("\n");
+    }
+
+
+    for(int i=0;i<origin.row;i++){
+        for(int j=0;j<origin.col;j++){
+            new_puzzle.puzzle_matrix[j][new_puzzle.col-1-i] = origin.puzzle_matrix[i][j];
+        }
+    }
+
+    LOGGING("NEW\n");
+    for(int i=0;i<new_puzzle.row;i++){
+        for(int j=0;j<new_puzzle.col;j++){
+            (new_puzzle.puzzle_matrix[i][j])?printf("O"):printf("-");
+        }
+        printf("\n");
+    }
+
+    return new_puzzle;
+
+}
+
 
 
 void reset(){
@@ -115,31 +149,24 @@ void show_matrix(){
 
 void DFS(int index){
     if(check || index == number_of_puzzle){
+        LOGGING("YES\n");
         check = true;
         return;
     }
-
-
-//    show_matrix();
-
-
-
+    puzzle cur_puzzle = puzzle_list[index];
 
     for(int i=0;i<m_row;i++){
         for(int j=0;j<m_col;j++){
-            SHOW(index);SHOW(i);SHOW(j);
-            if( valid(puzzle_list[index],i,j)){
-                LOGGING("Valid:\n");
-//                LOGGING("Before:");
-//                show_matrix();
-                fill_puzzle(puzzle_list[index],i,j);
-//                LOGGING("FILLED");
-//                show_matrix();
-                DFS(index+1);
-                remove_puzzle(puzzle_list[index],i,j);
-//                LOGGING("REMOVED:");
-//                show_matrix();
+            SHOW(i);SHOW(j);
+            for(int k=0;k<4;k++){
+                if( valid(cur_puzzle,i,j)){
+                    fill_puzzle(cur_puzzle,i,j);
+                    DFS(index+1);
+                    remove_puzzle(cur_puzzle,i,j);
+                }
+                cur_puzzle = rotate_puzzle(cur_puzzle);
             }
+
         }
     }
 }
@@ -165,6 +192,7 @@ int main(){
     int T;
     // input with maps
     scanf("%d",&T);
+    SHOW(T);
     while(T--){
         scanf("%d %d\n",&m_col,&m_row);
         reset();
