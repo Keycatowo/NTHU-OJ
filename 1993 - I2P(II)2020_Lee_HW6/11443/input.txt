@@ -1,0 +1,4 @@
+Sphere 30 3.14
+Cone 3 100 3.14
+Cuboid 2 5 7
+Cube 2
