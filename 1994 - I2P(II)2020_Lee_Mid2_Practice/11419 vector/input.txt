@@ -1,0 +1,10 @@
+recruit bc
+recruit a
+quit 1 0
+reserve 6
+recruit b
+quit 0 aa
+recruit bc
+reserve 19
+reserve 0
+capacity

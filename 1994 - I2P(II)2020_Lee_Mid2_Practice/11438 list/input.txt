@@ -1,0 +1,18 @@
+push_back 61631
+push_back 46461
+show
+pop_back
+pop_back
+push_back 14011
+pop_back
+push_back 17871
+push_back 47527
+show
+push_back 50699
+push_back 43999
+pop_back
+show
+push_back 6371
+show
+pop_back
+show
