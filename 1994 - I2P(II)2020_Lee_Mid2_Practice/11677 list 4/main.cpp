@@ -20,6 +20,7 @@ namespace
 
 int main()
 {
+  freopen("input.txt","r",stdin);
 	using namespace std;
 	{
 		monitor=true;

@@ -1,0 +1,10 @@
+push_back 20
+push_back 21
+push_back 22
+show
+remove 20
+show
+remove 21
+show
+remove 22
+show

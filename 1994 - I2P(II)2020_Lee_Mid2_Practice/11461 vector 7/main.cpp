@@ -31,7 +31,7 @@ namespace oj
 		str=rhs.str;
 		return *this;
 	}
-	
+
 	std::ostream& operator<<(std::ostream &os,const String &str)
 	{
 		return os<<str.str;
@@ -51,6 +51,7 @@ namespace oj
 
 int main()
 {
+  freopen("input.txt","r",stdin);
 	using namespace std;
 	{
 		monitor=true;

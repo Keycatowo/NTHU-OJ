@@ -1,0 +1,16 @@
+i 0 0 1701
+i 0 1 40508
+copy_ctor 0
+copy 1 0
+e 1 1
+copy 1 1
+i 0 2 27652
+copy_ctor 0
+copy_ctor 0
+copy_ctor 0
+i 0 1 16018
+copy_ctor 1
+c 0
+copy_ctor 1
+copy 1 0
+e 0 2
