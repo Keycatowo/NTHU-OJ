@@ -1,0 +1,11 @@
+4
+tom
+bruce
+alan
+bass
+4
+abc
+aac
+aaa
+bbb
+0

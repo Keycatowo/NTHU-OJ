@@ -1,0 +1,11 @@
+Push Bruce
+Push Alan
+Front
+Pop
+Push Tom
+Pop
+Front
+Pop
+Pop
+Pop
+Front
