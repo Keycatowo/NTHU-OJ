@@ -1,56 +1,62 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
 bool solve_one_line(){
   string str;
-  int a=0,b=0,c=0,d=0;
   getline(cin,str);
   if(str.size()==0)
     return true;
-  cout<<"size is "<<str.size()<<"\n";
+
+  stack<int> stk;
+//  cout<<"size is "<<str.size()<<"\n";
   for(int i=0; i<str.size();++i){
     switch(str[i]){
       case '{':
-        a++;
+        stk.push(1);
         break;
       case '[':
-        b++;
+        stk.push(2);
         break;
       case '(':
-        c++;
+        stk.push(3);
         break;
       case '<':
-        d++;
+        stk.push(4);
         break;
       case '}':
-        a--;
+        if(stk.empty()|| stk.top()!=1)
+          return false;
+        stk.pop();
         break;
       case ']':
-        b--;
+        if(stk.empty()|| stk.top()!=2)
+          return false;
+        stk.pop();
         break;
       case ')':
-        c--;
+        if(stk.empty()|| stk.top()!=3)
+          return false;
+        stk.pop();
         break;
       case '>':
-        d--;
+        if(stk.empty()|| stk.top()!=4)
+          return false;
+        stk.pop();
         break;
+      case ' ':
+        return false;
       default:
         break;
-    }
-    cout<<a<<"/"<<b<<"/"<<c<<"/"<<d<<"\n";
-    if(a<0 || b<0 || c<0 || d<0){
-//      cout<<"not balancce\n";
-      return false;
-    }
+    }//switch
+
 
   }//for
-
-  if(a==0 && b==0 && c==0 && d==0)
+  if(stk.empty())
     return true;
-  else{
-//    cout<<"not enough\n";
+  else
     return false;
-  }
+
 }
 
 
@@ -62,18 +68,11 @@ int main(){
   cin>>N;
   getchar();
 
-  for(int i=1;i<N;i++){
-    cout<<"Case :"<<i<<" ";
+  for(int i=0;i<N;i++){
+    cout<<"Case :"<<i+1<<" ";
     if (solve_one_line())
       cout<<"Yes\n";
     else
       cout<<"No\n";
   }
-
-
-  cout<<"Case :"<<N<<" ";
-    if (solve_one_line())
-      cout<<"Yes";
-    else
-      cout<<"No";
 }
