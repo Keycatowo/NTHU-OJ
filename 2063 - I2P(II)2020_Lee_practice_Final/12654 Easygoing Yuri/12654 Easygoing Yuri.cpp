@@ -17,7 +17,7 @@ int main(){
   int d_count = 0;
   int sum = 0;
   int max_count = 0;
-  for(i:all_list){
+  for(auto i:all_list){
 //    cout<<"for "<<i.first<<" "<<i.second<<"\n";
     if(tmp_step != i.first){
       tmp_step = i.first;

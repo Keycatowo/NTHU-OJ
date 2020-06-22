@@ -7,7 +7,7 @@
 | AC   | [11856](#11856) | Postfix Expression                          | `stack`                     |
 | AC   | [11933](#11933) | Vector Dot                                  | `operator overloading`,`PJ` |
 | 1/4  | [12306](#12306) | beat the monster                            | `BFS`                       |
-|      | [12652](#12652) | Yoshiko And Tentacles                       |                             |
+| AC   | [12652](#12652) | Yoshiko And Tentacles                       |                             |
 | AC   | [12654](#12654) | Easygoing Yuri                              |                             |
 |      | [12692](#12692) | GY's Tree                                   |                             |
 |      | [12817](#12817) | Social Distance                             |                             |
@@ -81,6 +81,59 @@
 
 [回到目錄](#題目)
 ## 12652
+### 題目
+碎形問題，考慮重疊
+### 輸入
++ 第一行為分支次數N
++ 第二行有N個表示每次分支長的長度p
++ 數量限制：
+    + N=1~30
+    + p=1~5
+### 輸出
+有被填滿過的格子數量
+### 思路
+最滿長30*5*2=300格
+每次走完之後下次要走的起點和方向insert進一個set裡面
+### 解答
+為對齊次數，最後一次沒有cin下一步，所以拿出來用補0的方式做
+```c++
+S_now.insert(make_tuple(155,155,2,p));
+
+  for(int i=1;i<N;i++){
+    cin>>p;
+    for (auto point: S_now){
+      fill_with(point,S_next, p);
+    }
+    S_now.clear();
+    S_now = S_next;
+    S_next.clear();
+  }
+
+  for (auto point: S_now){
+      fill_with(point,S_next, 0);
+  }
+```
+
+```c++
+void fill_with(const tuple<int,int,int,int> &point,set<tuple<int,int,int,int> > &S,const int & next_len){
+  int x = get<0>(point);
+  int y = get<1>(point);
+  int direction = get<2>(point);
+  int len = get<3>(point);
+  direction = (direction+8)%8;
+  for(int i=0;i<len;i++){
+    x += dx[direction];
+    y += dy[direction];
+    filled[x][y] = true;
+  }
+
+  int d1 = (direction+9)%8;
+  int d2 = (direction+7)%8;
+  S.insert(make_tuple(x,y,d1,next_len));
+  S.insert(make_tuple(x,y,d2,next_len));
+}
+```
+
 [回到目錄](#題目)
 ## 12654
 ### 題目
