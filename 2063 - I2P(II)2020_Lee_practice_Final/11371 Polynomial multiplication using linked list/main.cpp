@@ -6,7 +6,6 @@ int main(void){
   freopen("11371.txt","r",stdin);
 	Node *p1=create(); //polynomial linked list1
 	Node *p2=create(); //polynomial linked list2
-//	printNode(p2);
 	Node *mul=multiple(p1,p2);
 	printNode(mul);
 	destroy(mul);

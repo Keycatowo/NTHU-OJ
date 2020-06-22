@@ -3,7 +3,7 @@
 ## 題目
 | 狀態 | 題號            | 題目                                        | tags                        |
 | ---- | --------------- | ------------------------------------------- | --------------------------- |
-| 1/4  | [11371](#11371) | Polynomial multiplication using linked list | `linked-List`,`PJ`          |
+| AC  | [11371](#11371) | Polynomial multiplication using linked list | `linked-List`,`PJ`          |
 | AC   | [11856](#11856) | Postfix Expression                          | `stack`                     |
 | AC   | [11933](#11933) | Vector Dot                                  | `operator overloading`,`PJ` |
 | 1/4  | [12306](#12306) | beat the monster                            | `BFS`                       |
@@ -38,13 +38,40 @@
 ### 解題
 + 分開處理輸入、計算、輸出
 + 輸入以0結尾做確定
-+ 計算把n*m項結果全留下來
-    + 排除0x^0資料
-    + 其餘全部push 到一個優先佇列，以指數排序
-+ 輸出的時候
-    + 相同指數累加tmp_data
-    + 不同指數輸出之前累加好的tmp_data，並更新tmp_data和tmp_power
-    + 最後再輸出一次
++ 以mapreduce的方式做
+```c++
+Node* multiple(Node* p1, Node* p2){
+  using namespace std;
+  vector<pair<int,int> > L1;
+  vector<pair<int,int> > L2;
+  for(Node* cur = p1; cur!= nullptr;cur = cur->next)
+    L1.push_back(make_pair(cur->power, cur->data));
+  for(Node* cur = p2; cur!= nullptr;cur = cur->next)
+    L2.push_back(make_pair(cur->power, cur->data));
+
+
+  map<int,int,greater<int> > M;
+  int power,data;
+  for(auto i:L1){
+    for(auto j:L2){
+      power = i.first + j.first;
+      data = i.second * j.second;
+//      cout<<data << " " << power<<"\n";
+      if(M.find(power)!=M.end())
+        M[power] += data;
+      else
+        M[power] = data;
+    }
+  }
+
+  for(auto i:M){
+    if(i.second != 0)
+      cout<<" "<<i.second<<" "<<i.first;
+  }
+
+  return nullptr;
+}
+```
 
 [回到目錄](#題目)
 ## 11856
