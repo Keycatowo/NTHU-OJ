@@ -3,15 +3,15 @@
 ## 題目
 | 狀態 | 題號            | 題目                                        | tags                        |
 | ---- | --------------- | ------------------------------------------- | --------------------------- |
-| 等OJ | [11371](#11371) | Polynomial multiplication using linked list | `linked-List`,`PJ`          |
-| 等OJ | [11856](#11856) | Postfix Expression                          | `stack`                     |
-|      | [11933](#11933) | Vector Dot                                  | `operator overloading`,`PJ` |
-| ing  | [12306](#12306) | beat the monster                            | `BFS`                       |
+| 1/4  | [11371](#11371) | Polynomial multiplication using linked list | `linked-List`,`PJ`          |
+| AC   | [11856](#11856) | Postfix Expression                          | `stack`                     |
+| AC   | [11933](#11933) | Vector Dot                                  | `operator overloading`,`PJ` |
+| 1/4  | [12306](#12306) | beat the monster                            | `BFS`                       |
 |      | [12652](#12652) | Yoshiko And Tentacles                       |                             |
-|      | [12654](#12654) | Easygoing Yuri                              |                             |
+| AC   | [12654](#12654) | Easygoing Yuri                              |                             |
 |      | [12692](#12692) | GY's Tree                                   |                             |
 |      | [12817](#12817) | Social Distance                             |                             |
-| 等OJ | [12839](#12839) | MinMax-Heap                                 | `priority_queue`,`heap`     |
+| 2/4  | [12839](#12839) | MinMax-Heap                                 | `priority_queue`,`heap`     |
 
 ## 11371
 ### 題目
@@ -83,6 +83,28 @@
 ## 12652
 [回到目錄](#題目)
 ## 12654
+### 題目
+最大重疊區段問題
+### 解法
+將開始和結束點標記`1`或`-1`push進一個vector  
+sort之後遍歷一次把每個位置的sum記錄下來求最大
+```c++
+sort(all_list.begin(),all_list.end());
+  int tmp_step = all_list.at(0).first;
+  int d_count = 0;
+  int sum = 0;
+  int max_count = 0;
+  for(auto i:all_list){
+    if(tmp_step != i.first){
+      tmp_step = i.first;
+      sum += d_count;
+      max_count = max(max_count,sum);
+      d_count = 0;
+    }
+
+    d_count += i.second;
+  }
+```
 [回到目錄](#題目)
 ## 12692
 [回到目錄](#題目)
