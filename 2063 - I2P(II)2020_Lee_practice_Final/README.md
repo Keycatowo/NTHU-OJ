@@ -7,9 +7,9 @@
 | AC   | [11856](#11856) | Postfix Expression                          | `stack`                     |
 | AC   | [11933](#11933) | Vector Dot                                  | `operator overloading`,`PJ` |
 | 1/4  | [12306](#12306) | beat the monster                            | `BFS`                       |
-| AC   | [12652](#12652) | Yoshiko And Tentacles                       |                             |
-| AC   | [12654](#12654) | Easygoing Yuri                              |                             |
-|      | [12692](#12692) | GY's Tree                                   |                             |
+| AC   | [12652](#12652) | Yoshiko And Tentacles                       | `set`                       |
+| AC   | [12654](#12654) | Easygoing Yuri                              | `sort`,`interval`           |
+| AC   | [12692](#12692) | GY's Tree                                   |                             |
 |      | [12817](#12817) | Social Distance                             |                             |
 | 2/4  | [12839](#12839) | MinMax-Heap                                 | `priority_queue`,`heap`     |
 
@@ -160,6 +160,44 @@ sort(all_list.begin(),all_list.end());
 ```
 [回到目錄](#題目)
 ## 12692
+### 題目
+計算一顆樹的level和
+### 輸入
++ 第一行為兩個數字N和S，N表數字數，S表示根節點
++ 接下來N-1行，每行兩個數字表示連接關係
+### 輸出
+計算階層和
+### 解法
+因為節點數多(2*10^5)，所以不能用adjacency matrix  
+改用map來存點，key為node值，value為連接的vector
+```c++
+  int N,S,a,b;
+  cin>>N>>S;
+  map<int, vector<int>> M;
+  while(--N){
+    cin>>a>>b;
+    M[a].push_back(b);
+    M[b].push_back(a);
+  }
+  /// BFS
+  // reset
+  queue<pair<int,int>> Q;
+  Q.push(make_pair(S,0));
+  int sum = 0;
+  // loop
+  while(!Q.empty()){
+    // get a node
+    auto cur = Q.front();
+    Q.pop();
+    if(!M[cur.first].empty())
+      sum += cur.second;
+    // go over all nodes it connect
+    for(auto i: M[cur.first])
+      Q.push(make_pair(i,cur.second+1));
+    M[cur.first].clear();
+  }
+  cout<<sum<<"\n";
+```
 [回到目錄](#題目)
 ## 12817
 [回到目錄](#題目)
